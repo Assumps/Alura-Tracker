@@ -2,7 +2,7 @@ import clienteHttp from "@/http";
 import { INotificacao } from "@/interfaces/INotificacao";
 import IProjeto from "@/interfaces/IProjeto";
 import { Estado } from "@/store";
-import { OBTER_PROJETOS, CADASTRAR_PROJETOS, ALTERAR_PROJETOS, REMOVER_PROJETOS } from "@/store/actions";
+import { OBTER_PROJETOS, CADASTRAR_PROJETOS, ALTERAR_PROJETOS, REMOVER_PROJETO } from "@/store/actions";
 import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, DEFINIR_PROJETO, NOTIFICAR } from "@/store/mutations";
 import { Module } from "vuex";
 
@@ -37,16 +37,21 @@ export const projeto: Module<EstadoProjeto, Estado> = {
                 .then(resposta => commit(DEFINIR_PROJETO, resposta.data))
         },
         [CADASTRAR_PROJETOS](contexto, nomeDoProjeto: string) {
-            return clienteHttp.post('/projetos', {
+            return clienteHttp.post('projetos', {
                 nome: nomeDoProjeto
             })
         },
         [ALTERAR_PROJETOS](contexto, projeto: IProjeto) {
-            return clienteHttp.put(`/projetos/${projeto.id}`, projeto)
+            return clienteHttp.put(`projetos/${projeto.id}`, projeto)
         },
-        [REMOVER_PROJETOS]({ commit }, id: string) {
-            return clienteHttp.delete(`/projetos/${id}`)
+        [REMOVER_PROJETO]({ commit }, id: number) {
+            return clienteHttp.delete(`projetos/${id}`)
                 .then(() => commit(EXCLUIR_PROJETO, id))
         },
     },
+    getters: {
+        projetos (state) {
+          return state.projetos
+        }
+      }
 }

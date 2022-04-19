@@ -23,7 +23,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </span>
             </router-link>
-            <button class="button m1-2 is-danger" @click="excluir">
+            <button class="button m1-2 is-danger" @click="excluir(projeto.id)">
                 <span class="icon is-small">
                     <i class="fas fa-trash"></i>
                 </span>
@@ -37,15 +37,14 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { OBTER_PROJETOS, REMOVER_PROJETOS } from "@/store/actions";
-import { EXCLUIR_PROJETO } from "@/store/mutations";
+import { OBTER_PROJETOS, REMOVER_PROJETO } from "@/store/actions";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "Lista",
   methods: {
       excluir (id: string) {
-          this.store.dispatch(REMOVER_PROJETOS, id)
+          this.store.dispatch(REMOVER_PROJETO, id)
       }
   },
   setup() {
