@@ -1,0 +1,58 @@
+{
+  "projetos": [
+    {
+      "nome": "Golang",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nome": "Vue"
+    },
+    {
+      "nome": "Microsservices",
+      "id": 3
+    },
+    {
+      "nome": "Java",
+      "id": 4
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "Configuracao de ambiente de desenvolvimento",
+      "projeto": {
+        "id": 2,
+        "nome": "VueX"
+      }
+    },
+    {
+      "duracaoEmSegundos": 23,
+      "descricao": "Estudando Gin e APIs Rest",
+      "projeto": {
+        "nome": "Golang",
+        "id": 1
+      },
+      "id": 2
+    },
+    {
+      "duracaoEmSegundos": 7,
+      "descricao": "feing",
+      "projeto": {
+        "nome": "Microsservices",
+        "id": 3
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 6,
+      "descricao": "Streams",
+      "projeto": {
+        "nome": "Java",
+        "id": 4
+      },
+      "id": 4
+    }
+  ]
+}

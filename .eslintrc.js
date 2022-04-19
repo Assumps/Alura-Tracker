@@ -16,7 +16,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/multi-word-component-names': 'off',
     'vue/multi-word-component-names': ['error', {
-      'ignores': ['Projetos', 'Formulario', 'Lista', 'Notificacoes']
+      'ignores': ['Projetos', 'Formulario', 'Lista', 'Notificacoes', 'Modal']
     }]
   },
 }

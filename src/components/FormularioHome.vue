@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import TemporizadorHome from "./TemporizadorHome.vue";
 import { useStore } from 'vuex'
 import { key } from '@/store'
@@ -48,37 +48,41 @@ export default defineComponent({
   name: "FormularioHome",
   emits: ['aoSalvarTarefa'],
   components: { TemporizadorHome },
-  data () {
-      return{
-          descricao: '',
-          idProjeto: ''
-      }
-  },
-  methods: {
-      finalizarTarefa (tempoDecorrido: number): void {
+  setup (props, contexto) {
+    const store = useStore(key)
 
-      const projeto = this.projetos.find((p) => p.id == this.idProjeto);
+    const descricao = ref("")
+    const idProjeto = ref("")
+
+    const projetos = computed(() => store.state.projeto.projetos)
+
+
+    const finalizarTarefa =  (tempoDecorrido: number): void => {
+
+      const projeto = projetos.value.find((p) => p.id == idProjeto.value);
       if (!projeto) {
-        this.store.commit(NOTIFICAR, {
+        store.commit(NOTIFICAR, {
           titulo: 'Ops!',
           texto: "Selecione um projeto antes de finalizar a tarefa!",
           tipo: TipoNotificacao.FALHA,
         });
         return;
       }
-          this.$emit('aoSalvarTarefa', {
+          contexto.emit('aoSalvarTarefa', {
               duracaoEmSegundos: tempoDecorrido,
-              descricao: this.descricao,
-              projeto: this.projetos.find(proj => proj.id == this.idProjeto)
+              descricao: descricao.value,
+              projeto: projetos.value.find(proj => proj.id == idProjeto.value)
           })
-          this.descricao = ''
+          descricao.value = ''
       }
-  },
-  setup () {
-    const store = useStore(key)
+
+
     return {
-      projetos: computed(() => store.state.projetos),
-      store
+      descricao,
+      idProjeto,
+      projetos,
+      finalizarTarefa
+      
     }
   }
   
